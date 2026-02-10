@@ -636,7 +636,6 @@ func (d *DoubaoNew) prepareUpload(ctx context.Context, name string, size int64, 
 		values := url.Values{}
 		values.Set("shouldBypassScsDialog", "true")
 		values.Set("doubao_storage", "imagex_other")
-		values.Set("doubao_app_id", "497858")
 		req.SetQueryParamsFromValues(values)
 		req.SetHeader("Content-Type", "application/json")
 		req.SetHeader("x-command", "space.api.box.upload.prepare")
@@ -673,7 +672,6 @@ func (d *DoubaoNew) uploadBlocks(ctx context.Context, uploadID string, blocks []
 		values := url.Values{}
 		values.Set("shouldBypassScsDialog", "true")
 		values.Set("doubao_storage", "imagex_other")
-		values.Set("doubao_app_id", "497858")
 		req.SetQueryParamsFromValues(values)
 		req.SetHeader("Content-Type", "application/json")
 		req.SetHeader("x-command", "space.api.box.upload.blocks")
@@ -757,7 +755,6 @@ func (d *DoubaoNew) mergeUploadBlocks(ctx context.Context, uploadID string, seqL
 	values.Set("upload_id", uploadID)
 	values.Set("mount_point", "explorer")
 	values.Set("doubao_storage", "imagex_other")
-	values.Set("doubao_app_id", "497858")
 	urlStr := "https://internal-api-drive-stream.feishu.cn/space/api/box/stream/upload/merge_block/?" + values.Encode()
 
 	res, err := req.Execute(http.MethodPost, urlStr)
@@ -857,7 +854,6 @@ func (d *DoubaoNew) uploadBlockV3(ctx context.Context, uploadID string, block Up
 	values.Set("checksum", block.Checksum)
 	values.Set("mount_point", "explorer")
 	values.Set("doubao_storage", "imagex_other")
-	values.Set("doubao_app_id", "497858")
 	urlStr := "https://internal-api-drive-stream.feishu.cn/space/api/box/stream/upload/v3/block/?" + values.Encode()
 
 	res, err := req.Execute(http.MethodPost, urlStr)
@@ -886,7 +882,6 @@ func (d *DoubaoNew) finishUpload(ctx context.Context, uploadID string, numBlocks
 		values := url.Values{}
 		values.Set("shouldBypassScsDialog", "true")
 		values.Set("doubao_storage", "imagex_other")
-		values.Set("doubao_app_id", "497858")
 		req.SetQueryParamsFromValues(values)
 		req.SetHeader("Content-Type", "application/json")
 		req.SetHeader("x-command", "space.api.box.upload.finish")
