@@ -488,18 +488,15 @@ func (d *DoubaoNew) listAllChildren(ctx context.Context, parentToken string) ([]
 			return nil, err
 		}
 
-		if len(data.NodeList) > 0 {
-			for _, token := range data.NodeList {
-				node, ok := data.Entities.Nodes[token]
-				if !ok {
-					continue
-				}
-				nodes = append(nodes, node)
+		// 只根据 node_list 中的 token 从 entities.nodes 查找子项详情
+		// 当 node_list 为空时，说明文件夹为空，不应从 entities.nodes 取数据
+		// （entities.nodes 可能包含父文件夹自身信息，会导致无限循环）
+		for _, token := range data.NodeList {
+			node, ok := data.Entities.Nodes[token]
+			if !ok {
+				continue
 			}
-		} else {
-			for _, node := range data.Entities.Nodes {
-				nodes = append(nodes, node)
-			}
+			nodes = append(nodes, node)
 		}
 
 		if !data.HasMore || data.LastLabel == "" || data.LastLabel == lastLabel {
